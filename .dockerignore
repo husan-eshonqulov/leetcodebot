@@ -1,0 +1,15 @@
+.github
+.husky
+.vscode
+.dockerignore
+.env
+.env.example
+.git
+.gitignore
+.lintstagedrc.json
+.prettierrc
+
+dist
+node_modules
+eslint.config.mjs
+Dockerfile

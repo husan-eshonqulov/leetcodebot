@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model User {
+  id         BigInt   @id
+  first_name String   @db.VarChar(64)
+  last_name  String?  @db.VarChar(64)
+  username   String?  @unique @db.VarChar(32)
+  created_at DateTime @default(now()) @db.Timestamptz()
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamptz()
+
+  profile Profile? @relation("profiles__user_id")
+  members Member[] @relation("members__user_id")
+
+  @@map("users")
+}
+
+model Profile {
+  id         Int      @id @default(autoincrement()) @db.SmallInt
+  username   String   @unique @db.VarChar(30)
+  user_id    BigInt   @unique
+  created_at DateTime @default(now()) @db.Timestamptz()
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamptz()
+
+  user User @relation("profiles__user_id", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
+}
+
+model Group {
+  id         BigInt   @id
+  title      String?  @db.VarChar(255)
+  type       String   @db.VarChar(12)
+  created_at DateTime @default(now()) @db.Timestamptz()
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamptz()
+
+  members Member[] @relation("members__group_id")
+
+  @@map("groups")
+}
+
+model Member {
+  id         Int      @id @default(autoincrement()) @db.SmallInt
+  user_id    BigInt
+  group_id   BigInt
+  created_at DateTime @default(now()) @db.Timestamptz()
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamptz()
+
+  user  User  @relation("members__user_id", fields: [user_id], references: [id], onDelete: Cascade)
+  group Group @relation("members__group_id", fields: [group_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, group_id])
+  @@map("members")
+}
