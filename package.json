@@ -1,4 +1,10 @@
 {
   "name": "leetcodebot",
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "format": "prettier --ignore-unknown --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.7.4"
+  }
 }
