@@ -2,12 +2,15 @@
   "name": "leetcodebot",
   "type": "module",
   "scripts": {
+    "build": "tsc --outDir dist",
     "format": "prettier --ignore-unknown --write .",
     "prepare": "husky"
   },
   "devDependencies": {
+    "@types/node": "^24.10.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
-    "prettier": "^3.7.4"
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3"
   }
 }
