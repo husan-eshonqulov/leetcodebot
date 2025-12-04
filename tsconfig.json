@@ -7,6 +7,6 @@
     "moduleResolution": "nodenext",
     "skipLibCheck": true,
     "strict": true,
-    "target": "esnext"
+    "target": "es2022"
   }
 }
