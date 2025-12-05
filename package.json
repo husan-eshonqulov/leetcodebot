@@ -7,6 +7,10 @@
   "scripts": {
     "docker:compose:up": "docker compose -f docker-compose.dev.yml up -d",
     "docker:compose:down": "docker compose -f docker-compose.dev.yml down",
+    "prisma:migrate": "dotenv prisma migrate dev",
+    "prisma:db:push": "dotenv prisma db push",
+    "prisma:generate": "dotenv prisma generate",
+    "prisma:studio": "dotenv prisma studio",
     "build": "tsc --outDir dist",
     "lint": "eslint --fix .",
     "format": "prettier --ignore-unknown --write .",
@@ -15,14 +19,22 @@
   "engines": {
     "node": ">=24.11.0"
   },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.1.0",
+    "@prisma/client": "^7.1.0",
+    "pg": "^8.16.3"
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@types/node": "^24.10.1",
+    "@types/pg": "^8.15.6",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9.39.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
+    "prisma": "^7.1.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.48.1"
   }
