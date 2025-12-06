@@ -7,3 +7,86 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id        BigInt   @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  profile     Profile?
+  admins      Admin[]
+  challengers Challengers[]
+
+  @@map("users")
+}
+
+model Profile {
+  id        BigInt   @id
+  username  String   @unique
+  userId    BigInt   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("profiles")
+}
+
+model Group {
+  id        BigInt   @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  admins      Admin[]
+  challenges  Challenge[]
+  challengers Challengers[]
+
+  @@map("groups")
+}
+
+model Admin {
+  id      BigInt @id
+  userId  BigInt
+  groupId BigInt
+
+  user  User  @relation(fields: [userId], references: [id])
+  group Group @relation(fields: [groupId], references: [id])
+
+  @@unique([userId, groupId])
+  @@map("admins")
+}
+
+model Challenge {
+  id        BigInt   @id
+  startDate DateTime
+  endDate   DateTime
+  groupId   BigInt
+
+  group       Group         @relation(fields: [groupId], references: [id])
+  challengers Challengers[]
+
+  @@map("challenges")
+}
+
+model Challengers {
+  id          BigInt   @id
+  days        Int      @default(0) @db.SmallInt
+  status      Status   @default(ACTIVE)
+  userId      BigInt
+  groupId     BigInt
+  challengeId BigInt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user      User      @relation(fields: [userId], references: [id])
+  group     Group     @relation(fields: [groupId], references: [id])
+  challenge Challenge @relation(fields: [challengeId], references: [id])
+
+  @@unique([userId, groupId, challengeId])
+  @@map("challengers")
+}
+
+enum Status {
+  ACTIVE
+  PAUSED
+  LEFT
+}
