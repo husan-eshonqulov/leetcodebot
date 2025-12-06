@@ -12,6 +12,8 @@
     "prisma:generate": "dotenv prisma generate",
     "prisma:studio": "dotenv prisma studio",
     "build": "tsc --outDir dist",
+    "start": "node dist/src/index.js",
+    "start:dev": "tsx watch --clear-screen=false --env-file=.env src/index.ts",
     "lint": "eslint --fix .",
     "format": "prettier --ignore-unknown --write .",
     "prepare": "husky"
@@ -22,7 +24,9 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.1.0",
-    "pg": "^8.16.3"
+    "grammy": "^1.38.4",
+    "pg": "^8.16.3",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -35,6 +39,7 @@
     "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
     "prisma": "^7.1.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.48.1"
   }

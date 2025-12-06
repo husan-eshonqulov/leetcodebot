@@ -1,1 +1,6 @@
-console.log("Hello, World!");
+import { bot } from "./bot.js";
+
+await bot.start({
+  onStart: (botInfo) =>
+    console.log(`https://t.me/${botInfo.username} has been started...`)
+});
