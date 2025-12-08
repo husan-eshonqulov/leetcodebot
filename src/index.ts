@@ -1,6 +1,8 @@
 import { bot } from "./bot.js";
+import { logger } from "./logger.js";
 
 await bot.start({
-  onStart: (botInfo) =>
-    console.log(`https://t.me/${botInfo.username} has been started...`)
+  onStart: (botInfo) => {
+    logger.info(`https://t.me/${botInfo.username} has been started`);
+  }
 });

@@ -2,7 +2,8 @@ import zod from "zod";
 
 const ENV = zod.object({
   DATABASE_URL: zod.url(),
-  BOT_TOKEN: zod.string()
+  BOT_TOKEN: zod.string(),
+  NODE_ENV: zod.string().default("development")
 });
 
 const env = ENV.safeParse(process.env);
@@ -12,4 +13,4 @@ if (!env.success) {
   process.exit(1);
 }
 
-export const { DATABASE_URL, BOT_TOKEN } = env.data;
+export const { DATABASE_URL, BOT_TOKEN, NODE_ENV } = env.data;
