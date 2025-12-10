@@ -1,14 +1,11 @@
 import { RedisAdapter } from "@grammyjs/storage-redis";
 import { Context, lazySession, LazySessionFlavor } from "grammy";
-import { Redis } from "ioredis";
 
-import { REDIS_URL } from "../constants.js";
+import { redis } from "../redis.js";
 
 interface PrivateSessionData {
   __language_code?: string;
 }
-
-const redis = new Redis(REDIS_URL);
 
 export type PrivateSession = LazySessionFlavor<PrivateSessionData>;
 
