@@ -5,6 +5,7 @@ import { redis } from "../redis.js";
 
 interface PrivateSessionData {
   __language_code?: string;
+  isAdmin?: boolean;
 }
 
 export type PrivateSession = LazySessionFlavor<PrivateSessionData>;

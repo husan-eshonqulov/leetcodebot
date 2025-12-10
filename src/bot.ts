@@ -14,6 +14,6 @@ bot.use(i18n());
 
 bot.on("message:text", async (ctx) => {
   const session = await ctx.session;
-  await ctx.reply(session.__language_code ?? "uz");
+  console.log(session);
   await ctx.reply(ctx.t("cmd-start"));
 });
