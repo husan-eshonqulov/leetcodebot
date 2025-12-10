@@ -4,7 +4,9 @@ import { BOT_TOKEN } from "./constants.js";
 import { type PrivateContext } from "./private/index.js";
 import { privateChat } from "./private/index.js";
 
-export const bot = new Bot<PrivateContext>(BOT_TOKEN);
+export type BotContext = PrivateContext;
+
+export const bot = new Bot<BotContext>(BOT_TOKEN);
 
 bot.use(privateChat);
 
