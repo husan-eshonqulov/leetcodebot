@@ -4,7 +4,7 @@ const ENV = zod.object({
   BOT_TOKEN: zod.string(),
   DATABASE_URL: zod.url(),
   REDIS_URL: zod.url(),
-  NODE_ENV: zod.string().default("development")
+  NODE_ENV: zod.enum(["development", "production"])
 });
 
 const env = ENV.safeParse(process.env);
