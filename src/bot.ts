@@ -1,6 +1,7 @@
 import { Bot } from "grammy";
 
 import { BOT_TOKEN } from "./constants.js";
+import { errorHandler } from "./error.js";
 import { privateChat, type PrivateContext } from "./private/index.js";
 
 export type BotContext = PrivateContext;
@@ -13,4 +14,7 @@ bot.on("message:text", async (ctx) => {
   const session = await ctx.session;
   console.log(session);
   await ctx.reply(ctx.t("cmd-start"));
+  throw new Error("Test error");
 });
+
+bot.catch(errorHandler);

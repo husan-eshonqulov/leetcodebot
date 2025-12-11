@@ -11,8 +11,8 @@ export const createUser: Middleware<PrivateContext> = async (ctx, next) => {
   }
 
   await prisma.user.upsert({
-    where: { id: ctx.from.id },
     create: { id: ctx.from.id },
+    where: { id: ctx.from.id },
     update: {}
   });
 
