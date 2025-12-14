@@ -3,10 +3,13 @@ import { type Middleware } from "grammy";
 import { prisma } from "../prisma.js";
 import { type PrivateContext } from "./index.js";
 
-export const createUser: Middleware<PrivateContext> = async (ctx, next) => {
+export const ensureUserExists: Middleware<PrivateContext> = async (
+  ctx,
+  next
+) => {
   const session = await ctx.session;
 
-  if (typeof session.created === "boolean") {
+  if (session.initialized) {
     return next();
   }
 
@@ -16,26 +19,7 @@ export const createUser: Middleware<PrivateContext> = async (ctx, next) => {
     update: {}
   });
 
-  session.created = true;
-
-  return next();
-};
-
-export const authenticateUser: Middleware<PrivateContext> = async (
-  ctx,
-  next
-) => {
-  const session = await ctx.session;
-
-  if (typeof session.admin === "boolean") {
-    return next();
-  }
-
-  const admin = await prisma.admin.findFirst({
-    where: { userId: ctx.from.id }
-  });
-
-  session.admin = !!admin;
+  session.initialized = true;
 
   return next();
 };

@@ -1,18 +1,18 @@
 import { RedisAdapter } from "@grammyjs/storage-redis";
-import { type Context, lazySession, type LazySessionFlavor } from "grammy";
+import { lazySession, type LazySessionFlavor } from "grammy";
 
 import { redis } from "../redis.js";
+import { PrivateContext } from "./index.js";
 
 interface PrivateSessionData {
-  __language_code?: string;
-  admin?: boolean;
-  created?: boolean;
+  locale?: string;
+  initialized?: boolean;
 }
 
 export type PrivateSession = LazySessionFlavor<PrivateSessionData>;
 
-export const privateSession = <C extends Context>() =>
-  lazySession<PrivateSessionData, C>({
-    initial: () => ({}),
-    storage: new RedisAdapter({ instance: redis })
-  });
+export const privateSession = lazySession<PrivateSessionData, PrivateContext>({
+  initial: () => ({}),
+  prefix: "session-",
+  storage: new RedisAdapter({ instance: redis })
+});
