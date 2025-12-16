@@ -12,8 +12,8 @@ const shutdown = async (signal: string) => {
   process.exit(0);
 };
 
-const shutdownErrorHandler = (err: unknown) => {
-  logger.error("Error during shutdown: ", { err });
+const shutdownErrorHandler = (error: unknown) => {
+  logger.error("Error during shutdown: ", { error });
   process.exit(1);
 };
 
@@ -37,7 +37,7 @@ const bootstrap = async () => {
   });
 };
 
-bootstrap().catch((err: unknown) => {
-  logger.error("Failed to start bot", { err });
+bootstrap().catch((error: unknown) => {
+  logger.error("Failed to start bot", { error });
   process.exit(1);
 });

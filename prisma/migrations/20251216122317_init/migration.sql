@@ -12,7 +12,7 @@ CREATE TABLE "users" (
 
 -- CreateTable
 CREATE TABLE "profiles" (
-    "id" BIGINT NOT NULL,
+    "id" SERIAL NOT NULL,
     "username" TEXT NOT NULL,
     "userId" BIGINT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -32,7 +32,7 @@ CREATE TABLE "groups" (
 
 -- CreateTable
 CREATE TABLE "admins" (
-    "id" BIGINT NOT NULL,
+    "id" SERIAL NOT NULL,
     "userId" BIGINT NOT NULL,
     "groupId" BIGINT NOT NULL,
 
@@ -41,7 +41,7 @@ CREATE TABLE "admins" (
 
 -- CreateTable
 CREATE TABLE "challenges" (
-    "id" BIGINT NOT NULL,
+    "id" SERIAL NOT NULL,
     "startDate" TIMESTAMP(3) NOT NULL,
     "endDate" TIMESTAMP(3) NOT NULL,
     "groupId" BIGINT NOT NULL,
@@ -51,12 +51,12 @@ CREATE TABLE "challenges" (
 
 -- CreateTable
 CREATE TABLE "challengers" (
-    "id" BIGINT NOT NULL,
+    "id" SERIAL NOT NULL,
     "days" SMALLINT NOT NULL DEFAULT 0,
     "status" "Status" NOT NULL DEFAULT 'ACTIVE',
     "userId" BIGINT NOT NULL,
     "groupId" BIGINT NOT NULL,
-    "challengeId" BIGINT NOT NULL,
+    "challengeId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

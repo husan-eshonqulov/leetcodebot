@@ -16,5 +16,5 @@ export const prisma = new PrismaClient({
   ]
 });
 
-prisma.$on("error", (err) => logger.error("Prisma error: ", { err }));
+prisma.$on("error", (error) => logger.error("Prisma error: ", { error }));
 prisma.$on("warn", (warn) => logger.warn("Prisma warning: ", { warn }));
