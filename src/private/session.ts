@@ -6,6 +6,7 @@ import { PrivateContext } from "./index.js";
 
 interface PrivateSessionData {
   locale?: string;
+  profile?: string;
   initialized?: boolean;
 }
 

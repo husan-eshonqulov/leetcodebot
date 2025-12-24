@@ -16,3 +16,13 @@ export const languageCmd: Command = {
     await ctx.reply(ctx.t("cmd-language"), { reply_markup: languageMenu });
   }
 };
+
+export const registerCmd: Command = {
+  command: "register",
+  description: "register leetcode profile",
+
+  handler: async (ctx) => {
+    await ctx.conversation.enter("registerProfile");
+    console.log(await ctx.session);
+  }
+};

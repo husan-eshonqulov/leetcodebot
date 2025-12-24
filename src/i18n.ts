@@ -4,8 +4,8 @@ import ISO6391 from "iso-639-1";
 import { type LanguageCode } from "iso-639-1";
 
 import { BotContext } from "./bot.js";
-import { chunkButtons } from "./keyboard.js";
 import { logger } from "./logger.js";
+import { chunkButtons } from "./utils.js";
 
 export const i18n = new I18n<BotContext>({
   directory: "locales",
