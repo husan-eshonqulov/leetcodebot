@@ -1,0 +1,38 @@
+services:
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --cleanup --interval 60
+    restart: always
+
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    restart: always
+
+  redis:
+    image: redis:8-alpine
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
+    volumes:
+      - redis_data:/data
+    restart: always
+
+  bot:
+    image: ghcr.io/husan-eshonqulov/leetcodebot:main
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+      POSTGRES_URL: postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+      PARSE_MODE: ${PARSE_MODE}
+    depends_on:
+      - postgres
+      - redis
+    restart: always
+
+volumes:
+  postgres_data:
+  redis_data:
